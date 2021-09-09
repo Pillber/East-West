@@ -57,6 +57,8 @@ func _on_JoinButton_pressed():
 	#Attempt to Connect
 	gamestate.join_game(ip, name)
 	
+	$LobbyPanel/StartButton.disabled = true
+	
 func Refresh_Lobby():
 	#Clear current lobby list and add self
 	$LobbyPanel/PlayerList.clear()
