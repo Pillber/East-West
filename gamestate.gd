@@ -50,6 +50,14 @@ remote func register_player(player_name):
 		
 func _connected_ok():
 	emit_signal("connection_succeeded")
+	
+func _player_disconnected(id):
+	unregister_player(id)
+	
+func unregister_player(id):
+	if players.has(id):
+		players.erase(id)
+	emit_signal("player_list_changed")
 
 func get_player_list():
 	return players.values()
