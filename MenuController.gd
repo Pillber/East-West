@@ -11,16 +11,31 @@ func _ready():
 	gamestate.connect("game_error", self, "_on_game_error")
 	"""
 	
+	$LobbyPanel.hide()
+	$ConnectingPanel.show()
+	
 
 
 
 func _on_HostButton_pressed():
-	pass # Replace with function body.
-
-
+	#Get inputs
+	var name = $ConnectingPanel/NamePrompt.text
+	
+	#Check for valid input
+	if name == "":
+		$ErrorLabel.text = "INVALID NAME"
+		return
+		
+	$LobbyPanel.show()
+	$ConnectingPanel.hide()
+	$ErrorLabel.text = ""
+	
+	gamestate.host_game(name)
+	Refresh_Lobby()
+	
 func _on_JoinButton_pressed():
 	#Get inputs
-	var name = $ConnectingPanel/Labels/NameLabel.text
+	var name = $ConnectingPanel/NamePrompt.text
 	var ip = $ConnectingPanel/IPPrompt.text
 	
 	#Check for valid inputs
@@ -39,7 +54,16 @@ func _on_JoinButton_pressed():
 	#Attempt to Connect
 	gamestate.join_game(ip, name)
 	
+func Refresh_Lobby():
+	#Clear current lobby list and add self
+	$LobbyPanel/PlayerList.clear()
+	$LobbyPanel/PlayerList.add_item(gamestate.player_name + " (You)")
 	
+	#Add all of the other players
+	var player_list = gamestate.get_player_list()
+	player_list.sort()
+	for p in player_list:
+		$LobbyPanel/PlayerList.add_item(p)
 	
-	
-	
+func _on_StartButton_pressed():
+	gamestate.start_game()

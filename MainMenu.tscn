@@ -1,6 +1,9 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://MenuController.gd" type="Script" id=1]
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.807843, 0.435294, 0.435294, 1 )
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.807843, 0.435294, 0.435294, 1 )
@@ -21,10 +24,41 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -20.0
-margin_top = -20.0
-margin_right = 20.0
-margin_bottom = 20.0
+margin_left = -75.0
+margin_top = -125.0
+margin_right = 75.0
+margin_bottom = 125.0
+custom_styles/panel = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayerList" type="ItemList" parent="LobbyPanel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -60.0
+margin_top = -115.0
+margin_right = 60.0
+margin_bottom = 85.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StartButton" type="Button" parent="LobbyPanel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.5
+margin_top = 95.0
+margin_right = 20.5
+margin_bottom = 115.0
+text = "Start"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="ConnectingPanel" type="Panel" parent="."]
 anchor_left = 0.5
@@ -48,60 +82,60 @@ __meta__ = {
 }
 
 [node name="NameLabel" type="Label" parent="ConnectingPanel/Labels"]
-margin_left = 171.952
-margin_top = 31.4078
-margin_right = 241.952
-margin_bottom = 45.4078
+margin_left = 164.174
+margin_top = 24.3367
+margin_right = 234.174
+margin_bottom = 38.3367
 text = "Username:"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="IPLabel" type="Label" parent="ConnectingPanel/Labels"]
-margin_left = 181.023
-margin_top = 114.781
-margin_right = 232.023
-margin_bottom = 128.781
+margin_left = 173.245
+margin_top = 114.074
+margin_right = 224.245
+margin_bottom = 128.074
 text = "Host IP:"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="HostButton" type="Button" parent="ConnectingPanel"]
-margin_left = 60.0
-margin_top = 142.286
-margin_right = 102.0
-margin_bottom = 162.286
+margin_left = 52.222
+margin_top = 44.0
+margin_right = 94.222
+margin_bottom = 64.0
 text = "Host"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="JoinButton" type="Button" parent="ConnectingPanel"]
-margin_left = 60.0
-margin_top = 52.0
-margin_right = 100.0
-margin_bottom = 72.0
+margin_left = 52.222
+margin_top = 135.0
+margin_right = 92.222
+margin_bottom = 155.0
 text = "Join"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="IPPrompt" type="LineEdit" parent="ConnectingPanel"]
-margin_left = 145.0
-margin_top = 140.0
-margin_right = 265.0
-margin_bottom = 164.0
+margin_left = 137.222
+margin_top = 132.929
+margin_right = 257.222
+margin_bottom = 156.929
 text = "IP"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="NamePrompt" type="LineEdit" parent="ConnectingPanel"]
-margin_left = 145.0
-margin_top = 50.0
-margin_right = 265.0
-margin_bottom = 74.0
+margin_left = 137.222
+margin_top = 42.9289
+margin_right = 257.222
+margin_bottom = 66.9289
 text = "Name"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -113,5 +147,6 @@ margin_top = 74.2366
 margin_right = 13.1606
 margin_bottom = 88.2366
 
+[connection signal="pressed" from="LobbyPanel/StartButton" to="." method="_on_StartButton_pressed"]
 [connection signal="pressed" from="ConnectingPanel/HostButton" to="." method="_on_HostButton_pressed"]
 [connection signal="pressed" from="ConnectingPanel/JoinButton" to="." method="_on_JoinButton_pressed"]
