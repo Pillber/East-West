@@ -4,21 +4,39 @@ extends Control
 func _ready():
 	# Called every time the node is added to the scene.
 	"""
-	gamestate.connect("connection_failed", self, "_on_connection_failed")
 	gamestate.connect("game_ended", self, "_on_game_ended")
 	gamestate.connect("game_error", self, "_on_game_error")
 	"""
-	gamestate.connect("player_list_changed", self, "Refresh_Lobby")
+	gamestate.connect("player_list_changed", self, "refresh_lobby")
 	gamestate.connect("connection_succeeded", self, "_on_connection_success")
+	gamestate.connect("connection_failed", self, "_on_connection_failed")
 	
 	$LobbyPanel.hide()
 	$ConnectingPanel.show()
 	
 
 func _on_connection_success():
-	Refresh_Lobby()
+	refresh_lobby()
 	$ConnectingPanel.hide()
 	$LobbyPanel.show()
+	
+func _on_connection_failed():
+	$ErrorLabel.text = "CONNECTION FAILED."
+	$ConnectingPanel/HostButton.disabled = false
+	$ConnectingPanel/JoinButton.disabled = false
+	
+func refresh_lobby():
+	#Clear current lobby list and add self
+	$LobbyPanel/PlayerList.clear()
+	$LobbyPanel/PlayerList.add_item(gamestate.player_name + " (You)")
+	
+	#Add all of the other players
+	var player_list = gamestate.get_player_list()
+	print("List: " + str(player_list))
+	player_list.sort()
+	for p in player_list:
+		$LobbyPanel/PlayerList.add_item(p)
+		print("Adding to UI: " + p)
 
 func _on_HostButton_pressed():
 	#Get inputs
@@ -34,9 +52,10 @@ func _on_HostButton_pressed():
 	$ErrorLabel.text = ""
 	
 	gamestate.host_game(name)
-	Refresh_Lobby()
+	refresh_lobby()
 	
 func _on_JoinButton_pressed():
+	
 	#Get inputs
 	var name = $ConnectingPanel/NamePrompt.text
 	var ip = $ConnectingPanel/IPPrompt.text
@@ -59,18 +78,8 @@ func _on_JoinButton_pressed():
 	
 	$LobbyPanel/StartButton.disabled = true
 	
-func Refresh_Lobby():
-	#Clear current lobby list and add self
-	$LobbyPanel/PlayerList.clear()
-	$LobbyPanel/PlayerList.add_item(gamestate.player_name + " (You)")
-	
-	#Add all of the other players
-	var player_list = gamestate.get_player_list()
-	print("List: " + str(player_list))
-	player_list.sort()
-	for p in player_list:
-		$LobbyPanel/PlayerList.add_item(p)
-		print("Adding to UI: " + p)
-	
 func _on_StartButton_pressed():
 	gamestate.start_game()
+
+
+	

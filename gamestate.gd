@@ -20,11 +20,11 @@ signal game_ended()
 signal game_error(what)
 
 func _ready():
-	get_tree().connect("network_peer_connected", self, "_player_connected")
-	get_tree().connect("network_peer_disconnected", self,"_player_disconnected")
-	get_tree().connect("connected_to_server", self, "_connected_ok")
-	#get_tree().connect("connection_failed", self, "_connected_fail")
-	#get_tree().connect("server_disconnected", self, "_server_disconnected")
+	get_tree().connect("network_peer_connected", self, "_on_player_connected")
+	get_tree().connect("network_peer_disconnected", self,"_on_player_disconnected")
+	get_tree().connect("connected_to_server", self, "_on_connected_ok")
+	get_tree().connect("connection_failed", self, "_on_connected_fail")
+	get_tree().connect("server_disconnected", self, "_on_server_disconnected")
 
 func host_game(new_player_name):
 	player_name = new_player_name
@@ -39,7 +39,7 @@ func join_game(ip, new_player_name):
 	get_tree().set_network_peer(peer)
 	
 # This is called on all clients (even listen server) whenever someone connects
-func _player_connected(id):
+func _on_player_connected(id):
 	rpc_id(id, "register_player", player_name)
 	
 remote func register_player(player_name):
@@ -48,16 +48,22 @@ remote func register_player(player_name):
 	players[id] = player_name 
 	emit_signal("player_list_changed")
 		
-func _connected_ok():
+func _on_connected_ok():
 	emit_signal("connection_succeeded")
 	
-func _player_disconnected(id):
+func _on_player_disconnected(id):
 	unregister_player(id)
 	
 func unregister_player(id):
 	if players.has(id):
 		players.erase(id)
 	emit_signal("player_list_changed")
+	
+func _on_connected_fail():
+	emit_signal("connection_failed")
+	
+func _on_server_disconnected():
+	pass
 
 func get_player_list():
 	return players.values()
