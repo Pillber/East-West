@@ -5,7 +5,7 @@ const DEFAULT_PORT = 10567
 const MAX_PEERS = 12
 
 #Is a NetworkedMultiplayerENet: Is what is 
-var peer = null
+var peer: NetworkedMultiplayerENet = null
 
 var players = {}
 var player_name = "Jonathan"
@@ -22,7 +22,7 @@ signal game_error(what)
 func _ready():
 	get_tree().connect("network_peer_connected", self, "_player_connected")
 	get_tree().connect("network_peer_disconnected", self,"_player_disconnected")
-	#get_tree().connect("connected_to_server", self, "_connected_ok")
+	get_tree().connect("connected_to_server", self, "_connected_ok")
 	#get_tree().connect("connection_failed", self, "_connected_fail")
 	#get_tree().connect("server_disconnected", self, "_server_disconnected")
 
@@ -38,14 +38,18 @@ func join_game(ip, new_player_name):
 	peer.create_client(ip, DEFAULT_PORT)
 	get_tree().set_network_peer(peer)
 	
+# This is called on all clients (even listen server) whenever someone connects
 func _player_connected(id):
 	rpc_id(id, "register_player", player_name)
-	emit_signal("player_list_changed")
 	
-func register_player(player_name):
-	print("player registering")
-	if not players.has(player_name):
-		players[player_name] = "connected"
+remote func register_player(player_name):
+	print("Registering player " + player_name)
+	var id = get_tree().get_rpc_sender_id()
+	players[id] = player_name 
+	emit_signal("player_list_changed")
+		
+func _connected_ok():
+	emit_signal("connection_succeeded")
 
 func get_player_list():
 	return players.values()

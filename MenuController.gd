@@ -5,17 +5,20 @@ func _ready():
 	# Called every time the node is added to the scene.
 	"""
 	gamestate.connect("connection_failed", self, "_on_connection_failed")
-	gamestate.connect("connection_succeeded", self, "_on_connection_success")
 	gamestate.connect("game_ended", self, "_on_game_ended")
 	gamestate.connect("game_error", self, "_on_game_error")
 	"""
 	gamestate.connect("player_list_changed", self, "Refresh_Lobby")
+	gamestate.connect("connection_succeeded", self, "_on_connection_success")
 	
 	$LobbyPanel.hide()
 	$ConnectingPanel.show()
 	
 
-
+func _on_connection_success():
+	Refresh_Lobby()
+	$ConnectingPanel.hide()
+	$LobbyPanel.show()
 
 func _on_HostButton_pressed():
 	#Get inputs
@@ -61,9 +64,11 @@ func Refresh_Lobby():
 	
 	#Add all of the other players
 	var player_list = gamestate.get_player_list()
+	print("List: " + str(player_list))
 	player_list.sort()
 	for p in player_list:
 		$LobbyPanel/PlayerList.add_item(p)
+		print("Adding to UI: " + p)
 	
 func _on_StartButton_pressed():
 	gamestate.start_game()
