@@ -63,6 +63,7 @@ func _on_connected_fail():
 	emit_signal("connection_failed")
 	
 func _on_server_disconnected():
+	print("Server Disconnecting")
 	pass
 
 func get_player_list():
@@ -83,30 +84,14 @@ func start_game():
 	#Start own pre-game code
 	pre_start_game()
 
-
 #Run after start button is pressed but before it actually starts
 remote func pre_start_game():
 
 	# Change to game scene while keeping lobby scene loading
-	var Game = load("res://Game.tscn").instance()
-	get_tree().get_root().add_child(Game)
-	get_tree().get_root().get_node("MainMenu").hide()
 	
-	# Add this clients player to the game scene
-	var my_player = load("res://Player.tscn").instance()
-	my_player.set_name(str(get_tree().get_network_unique_id()))
-	my_player.set_in_game_name(player_name)
-	my_player.set_network_master(get_tree().get_network_unique_id())
-	get_node("/root/Game").add_child(my_player)
 	
-	# Add all other players to the game scene
-	for p in players:
-		var player = load("res://Player.tscn").instance()
-		player.set_name(str(p))
-		player.set_network_master(p)
-		player.set_in_game_name(players[p])
-		get_node("/root/Game").add_child(player) 
-		get_node("/root/Game/" + str(p)).position += Vector2(100, 0)
+	
+	
 	
 	#If NOT THE SERVER HOST --> Tell server we are ready
 	if not get_tree().is_network_server():
