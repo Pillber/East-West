@@ -126,7 +126,7 @@ margin_left = 137.222
 margin_top = 132.929
 margin_right = 257.222
 margin_bottom = 156.929
-text = "IP"
+placeholder_text = "IP"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -136,7 +136,7 @@ margin_left = 137.222
 margin_top = 42.9289
 margin_right = 257.222
 margin_bottom = 66.9289
-text = "Name"
+placeholder_text = "Name"
 __meta__ = {
 "_edit_use_anchors_": false
 }
