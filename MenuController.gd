@@ -28,14 +28,14 @@ func _on_connection_failed():
 func refresh_lobby():
 	#Clear current lobby list and add self
 	$LobbyPanel/PlayerList.clear()
-	#$LobbyPanel/PlayerList.add_item(gamestate.player_name + " (You)")
+	$LobbyPanel/PlayerList.add_item(gamestate.player_name + " (You)")
 	
 	#Add all of the other players
 	var player_list = gamestate.get_player_list()
 	print("List: " + str(player_list))
 	player_list.sort()
 	for p in player_list:
-		$LobbyPanel/PlayerList.add_item(p + "(YOU)" if p == gamestate.player_name else p)
+		$LobbyPanel/PlayerList.add_item(p)
 		print("Adding to UI: " + p)
 
 func _on_HostButton_pressed():

@@ -4,6 +4,7 @@ export var move_speed = 100
 
 func _ready():
 	$Name.text = gamestate.player_name
+	position = Vector2(100, 100)
 
 
 func _physics_process(delta):

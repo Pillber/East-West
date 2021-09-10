@@ -31,17 +31,12 @@ func host_game(new_player_name):
 	peer = NetworkedMultiplayerENet.new()
 	peer.create_server(DEFAULT_PORT, MAX_PEERS)
 	get_tree().set_network_peer(peer)
-	register_self()
 
 func join_game(ip, new_player_name):
 	player_name = new_player_name
 	peer = NetworkedMultiplayerENet.new()
 	peer.create_client(ip, DEFAULT_PORT)
 	get_tree().set_network_peer(peer)
-	register_self()
-	
-func register_self():
-	players[get_tree().get_network_unique_id()] = player_name
 	
 # This is called on all clients (even listen server) whenever someone connects
 func _on_player_connected(id):
@@ -97,6 +92,13 @@ remote func pre_start_game():
 	get_tree().get_root().add_child(Game)
 	get_tree().get_root().get_node("MainMenu").hide()
 	
+	# Add this clients player to the game scene
+	var my_player = load("res://Player.tscn").instance()
+	my_player.set_name(str(get_tree().get_network_unique_id()))
+	my_player.set_network_master(get_tree().get_network_unique_id())
+	get_node("/root/Game").add_child(my_player)
+	
+	# Add all other players to the game scene
 	for p in players:
 		var player = load("res://Player.tscn").instance()
 		player.set_name(str(p))
