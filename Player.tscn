@@ -15,6 +15,7 @@ margin_top = -52.0
 margin_right = 20.0
 margin_bottom = -42.0
 text = "Name"
+align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
