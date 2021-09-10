@@ -4,10 +4,13 @@ export var move_speed = 100
 
 func _ready():
 	position = Vector2(100, 100)
-	if gamestate.players.has(name):
-		$Name.text = gamestate.players[name]
-	else:
-		$Name.text = gamestate.player_name
+	
+	$Name.text = gamestate.player_name
+	
+	for id in gamestate.players:
+		if str(id) == name:
+			$Name.text = gamestate.players[id]
+	
 		
 
 

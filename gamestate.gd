@@ -100,6 +100,7 @@ remote func pre_start_game():
 	
 	# Add all other players to the game scene
 	for p in players:
+		print(p)
 		var player = load("res://Player.tscn").instance()
 		player.set_name(str(p))
 		player.set_network_master(p)
