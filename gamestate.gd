@@ -106,6 +106,7 @@ remote func pre_start_game():
 		player.set_network_master(p)
 		player.set_in_game_name(players[p])
 		get_node("/root/Game").add_child(player) 
+		get_node("/root/Game/" + str(p)).position += Vector2(100, 0)
 	
 	#If NOT THE SERVER HOST --> Tell server we are ready
 	if not get_tree().is_network_server():
