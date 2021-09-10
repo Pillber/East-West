@@ -4,19 +4,9 @@ export var move_speed = 100
 
 func _ready():
 	position = Vector2(100, 100)
-	
-	$Name.text = gamestate.player_name
-	
-	for id in gamestate.players:
-		if str(id) == name:
-			$Name.text = gamestate.players[id]
-	
-		
 
 
 func _physics_process(delta):
-	
-	
 	
 	if self.is_network_master():
 		var input = Vector2()
@@ -35,3 +25,6 @@ func _physics_process(delta):
 		move_and_slide(input * move_speed)
 	else:
 		position = Vector2(100, 100)
+
+func set_in_game_name(new_name):
+	$Name.text = new_name

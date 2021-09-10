@@ -14,7 +14,8 @@ margin_left = -20.1749
 margin_top = -52.0
 margin_right = 20.0
 margin_bottom = -42.0
-text = "Name"
+grow_horizontal = 2
+text = "Name Placeholder"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
