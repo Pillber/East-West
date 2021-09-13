@@ -87,10 +87,8 @@ func start_game():
 #Run after start button is pressed but before it actually starts
 remote func pre_start_game():
 
-	# Change to game scene while keeping lobby scene loading
-	
-	
-	
+	#Will be replaced with the first section later
+	SectionManager.load_section("NoMansLand")
 	
 	
 	#If NOT THE SERVER HOST --> Tell server we are ready
