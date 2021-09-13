@@ -42,8 +42,8 @@ func join_game(ip, new_player_name):
 func _on_player_connected(id):
 	rpc_id(id, "register_player", player_name)
 	
-remote func register_player(player_name):
-	print("Registering player " + player_name)
+remote func register_player(new_player_name):
+	print("Registering player " + new_player_name)
 	var id = get_tree().get_rpc_sender_id()
 	players[id] = player_name 
 	emit_signal("player_list_changed")
