@@ -1,5 +1,9 @@
 extends Control
 
+onready var lobby = $LobbyPanel
+onready var connecting = $ConnectingPanel
+onready var main_menu = $MainMenu
+onready var error = $ErrorLabel
 
 func _ready():
 	# Called every time the node is added to the scene.
@@ -11,45 +15,52 @@ func _ready():
 	gamestate.connect("connection_succeeded", self, "_on_connection_success")
 	gamestate.connect("connection_failed", self, "_on_connection_failed")
 	
-	$LobbyPanel.hide()
-	$ConnectingPanel.show()
+	main_menu.connect("play_pressed", self, "show_connecting")
 	
+	lobby.hide()
+	connecting.hide()
+	main_menu.show()
 
+func show_connecting():
+	main_menu.hide()
+	connecting.show()
+	
 func _on_connection_success():
 	refresh_lobby()
-	$ConnectingPanel.hide()
-	$LobbyPanel.show()
+	connecting.hide()
+	lobby.show()
 	
 func _on_connection_failed():
-	$ErrorLabel.text = "CONNECTION FAILED."
-	$ConnectingPanel/HostButton.disabled = false
-	$ConnectingPanel/JoinButton.disabled = false
+	error.text = "CONNECTION FAILED."
+	connecting.get_node("HostButton").disabled = false
+	connecting.get_node("JoinButton").disabled = false
 	
 func refresh_lobby():
+	var lobby_list = lobby.get_node("PlayerList")
 	#Clear current lobby list and add self
-	$LobbyPanel/PlayerList.clear()
-	$LobbyPanel/PlayerList.add_item(gamestate.player_name + " (You)")
+	lobby_list.clear()
+	lobby_list.add_item(gamestate.player_name + " (You)")
 	
 	#Add all of the other players
 	var player_list = gamestate.get_player_list()
 	print("List: " + str(player_list))
 	player_list.sort()
 	for p in player_list:
-		$LobbyPanel/PlayerList.add_item(p)
+		lobby_list.add_item(p)
 		print("Adding to UI: " + p)
 
 func _on_HostButton_pressed():
 	#Get inputs
-	var name = $ConnectingPanel/NamePrompt.text
+	var name = connecting.get_node("NamePrompt").text
 	
 	#Check for valid input
 	if name == "":
-		$ErrorLabel.text = "INVALID NAME"
+		error.text = "INVALID NAME"
 		return
 		
-	$LobbyPanel.show()
-	$ConnectingPanel.hide()
-	$ErrorLabel.text = ""
+	lobby.show()
+	connecting.hide()
+	error.text = ""
 	
 	gamestate.host_game(name)
 	refresh_lobby()
@@ -57,26 +68,26 @@ func _on_HostButton_pressed():
 func _on_JoinButton_pressed():
 	
 	#Get inputs
-	var name = $ConnectingPanel/NamePrompt.text
-	var ip = $ConnectingPanel/IPPrompt.text
+	var name = connecting.get_node("NamePrompt").text
+	var ip = connecting.get_node("IPPrompt").text
 	
 	#Check for valid inputs
 	if name == "":
-		$ErrorLabel.text = "INVALID NAME"
+		error.text = "INVALID NAME"
 		return
 	if not ip.is_valid_ip_address():
-		$ErrorLabel.text = "INVALID IP"
+		error.text = "INVALID IP"
 		return
 	
 	#Disable further inputs until connection attempt is processed
-	$ErrorLabel.text = ""
-	$ConnectingPanel/HostButton.disabled = true
-	$ConnectingPanel/JoinButton.disabled = true
+	error.text = ""
+	connecting.get_node("HostButton").disabled = true
+	connecting.get_node("JoinButton").disabled = true
 	
 	#Attempt to Connect
 	gamestate.join_game(ip, name)
 	
-	$LobbyPanel/StartButton.disabled = true
+	lobby.get_node("StartButton").disabled = true
 	
 func _on_StartButton_pressed():
 	gamestate.start_game()

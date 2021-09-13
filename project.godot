@@ -11,12 +11,23 @@ config_version=4
 [application]
 
 config/name="East-West"
-run/main_scene="res://MainMenu.tscn"
+run/main_scene="res://Menus.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
 gamestate="*res://gamestate.gd"
+
+[display]
+
+window/size/width=960
+window/size/height=540
+window/size/fullscreen=true
+window/stretch/mode="2d"
+
+[gui]
+
+theme/custom_font="res://UI/main_menu_font.tres"
 
 [input]
 

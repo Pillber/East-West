@@ -90,7 +90,7 @@ remote func pre_start_game():
 	# Change to game scene while keeping lobby scene loading
 	var Game = load("res://Game.tscn").instance()
 	get_tree().get_root().add_child(Game)
-	get_tree().get_root().get_node("MainMenu").hide()
+	get_tree().get_root().get_node("Menus").hide()
 	
 	# Add this clients player to the game scene
 	var my_player = load("res://Player.tscn").instance()
