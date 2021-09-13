@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://SpotlightController.gd" type="Script" id=1]
+[ext_resource path="res://spotlight.png" type="Texture" id=2]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 85.0
+
+[sub_resource type="Curve2D" id=2]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 208.369, 157.188, 0, 0, 0, 0, 813.057, 157.188, 0, 0, 0, 0, 820.664, 281.929, 0, 0, 0, 0, 228.905, 274.323, 0, 0, 0, 0, 229.666, 388.415, 0, 0, 0, 0, 814.579, 386.894 )
+}
+
+[node name="Spotlight" type="Area2D"]
+script = ExtResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Path" type="Path2D" parent="."]
+curve = SubResource( 2 )
+
+[node name="PathFollower" type="PathFollow2D" parent="Path"]
+position = Vector2( 208.369, 157.188 )
+
+[connection signal="body_entered" from="." to="." method="_on_Spotlight_body_entered"]

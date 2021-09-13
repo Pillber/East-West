@@ -3,12 +3,26 @@ extends Node2D
 
 func _ready():
 	
-	# Add this clients player to the game scene
+	#Make server/host the master of all non-player objects
+	master_game_objects_to_host()
+	
+	
+	spawn_players()
+	
+	
+	
+	
+func player_spotted(who):
+	print(str(who) + " was spotted")
+	
+	
+func spawn_players():
+	#Add my player
 	var my_player = load("res://Player.tscn").instance()
 	my_player.set_name(str(get_tree().get_network_unique_id()))
 	my_player.set_in_game_name(gamestate.player_name)
 	my_player.set_network_master(get_tree().get_network_unique_id())
-	add_child(my_player)
+	$Players.add_child(my_player)
 	
 	# Add all other players to the game scene
 	for p in gamestate.players:
@@ -17,11 +31,10 @@ func _ready():
 		player.set_network_master(p)
 		player.set_in_game_name(gamestate.players[p])
 		player.position = Vector2(100, 100)
-		add_child(player) 
-	
-	
-	master_game_objects_to_host()
-	
+		$Players.add_child(player) 
+		
+
+		
 #Go through all objects not controlled by a player and set their network master to host
 func master_game_objects_to_host():
 	#If host
