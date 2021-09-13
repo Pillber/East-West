@@ -4,7 +4,7 @@ onready var lobby = $LobbyPanel
 onready var connecting = $ConnectingPanel
 onready var main_menu = $MainMenu
 onready var error = $ErrorLabel
-
+onready var host_or_join = $HostOrJoin
 
 func _ready():
 	# Called every time the node is added to the scene.
@@ -20,11 +20,12 @@ func _ready():
 	
 	lobby.hide()
 	connecting.hide()
+	host_or_join.hide()
 	main_menu.show()
 
 func show_connecting():
 	main_menu.hide()
-	connecting.show()
+	host_or_join.show()
 	
 func _on_connection_success():
 	refresh_lobby()
