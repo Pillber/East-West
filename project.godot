@@ -16,7 +16,7 @@ config/icon="res://icon.png"
 
 [autoload]
 
-gamestate="*res://Network.gd"
+Network="*res://Network.gd"
 
 [display]
 

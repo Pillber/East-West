@@ -143,7 +143,6 @@ __meta__ = {
 }
 
 [node name="ErrorLabel" type="Label" parent="."]
-visible = false
 margin_left = -26.8394
 margin_top = 74.2366
 margin_right = 13.1606

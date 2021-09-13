@@ -1,6 +1,6 @@
 extends VBoxContainer
 
-signal play_pressed
+signal play_pressed()
 
 func _on_PlayButton_pressed():
 	print("playing...")
