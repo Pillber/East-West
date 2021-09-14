@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://PathFollower.gd" type="Script" id=1]
+
+[sub_resource type="Curve2D" id=1]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 512.619, 322.376, 0, 0, 0, 0, 368.511, 114.542, 0, 0, 0, 0, 267.128, 336.859, 0, 0, 0, 0, 128.813, 150.75 )
+}
+
+[node name="Path" type="Path2D"]
+curve = SubResource( 1 )
+
+[node name="PathFollow2D" type="PathFollow2D" parent="."]
+position = Vector2( 366.338, 112.37 )
+rotation = -0.0179361
+rotate = false
+script = ExtResource( 1 )

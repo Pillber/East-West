@@ -16,6 +16,7 @@ func player_spotted(who):
 	print(str(who) + " was spotted")
 	
 	
+	
 func spawn_players():
 	#Add my player
 	var my_player = load("res://Player.tscn").instance()
@@ -42,4 +43,4 @@ func master_game_objects_to_host():
 		#Go through all children of this sections scene
 		for c in get_children():
 			#Set self(host) to master of these objects
-			c.set_network_master(get_tree().get_network_unique_id())
+			c.set_network_master(get_tree().get_network_unique_id(), true)
