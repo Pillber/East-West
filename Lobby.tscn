@@ -1,0 +1,140 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Lobby.gd" type="Script" id=1]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.138655, 0.20408, 0.229004, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.207843, 0.290196, 0.321569, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 1 )
+
+[node name="Lobby" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -0.529724
+margin_right = -0.529724
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 30.0
+margin_top = 30.0
+margin_right = -30.0
+margin_bottom = -30.0
+custom_constants/separation = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayersPanel" type="Panel" parent="HBoxContainer"]
+margin_right = 209.0
+margin_bottom = 210.0
+size_flags_horizontal = 3
+custom_styles/panel = SubResource( 1 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/PlayersPanel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+size_flags_horizontal = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayersTitle" type="Label" parent="HBoxContainer/PlayersPanel/VBoxContainer"]
+margin_right = 199.0
+margin_bottom = 17.0
+size_flags_vertical = 1
+text = "Players"
+align = 1
+
+[node name="PlayerList" type="ItemList" parent="HBoxContainer/PlayersPanel/VBoxContainer"]
+margin_top = 21.0
+margin_right = 199.0
+margin_bottom = 173.0
+size_flags_vertical = 3
+max_text_lines = 6
+
+[node name="ReadyButton" type="Button" parent="HBoxContainer/PlayersPanel/VBoxContainer"]
+margin_top = 177.0
+margin_right = 199.0
+margin_bottom = 200.0
+text = "Ready"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MessagesPanel" type="Panel" parent="HBoxContainer"]
+margin_left = 211.0
+margin_right = 420.0
+margin_bottom = 210.0
+size_flags_horizontal = 3
+custom_styles/panel = SubResource( 2 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/MessagesPanel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -5.0
+margin_bottom = -5.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Messages" type="RichTextLabel" parent="HBoxContainer/MessagesPanel/VBoxContainer"]
+margin_right = 199.0
+margin_bottom = 169.0
+size_flags_vertical = 3
+text = "Hosted Lobby!"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/MessagesPanel/VBoxContainer"]
+margin_top = 173.0
+margin_right = 199.0
+margin_bottom = 200.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MessagePrompt" type="LineEdit" parent="HBoxContainer/MessagesPanel/VBoxContainer/HBoxContainer"]
+margin_right = 147.0
+margin_bottom = 27.0
+size_flags_horizontal = 3
+placeholder_text = "Enter Message..."
+
+[node name="SendButton" type="Button" parent="HBoxContainer/MessagesPanel/VBoxContainer/HBoxContainer"]
+margin_left = 151.0
+margin_right = 199.0
+margin_bottom = 27.0
+text = "Send"
+
+[node name="StartButton" type="Button" parent="."]
+visible = false
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 50.0
+margin_top = -26.0
+margin_right = -50.0
+margin_bottom = -3.0
+text = "Start"
+__meta__ = {
+"_edit_use_anchors_": false
+}
