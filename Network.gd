@@ -16,6 +16,7 @@ var players_ready = []
 signal player_list_changed()
 signal connection_failed()
 signal connection_succeeded()
+signal show_lobby()
 signal game_ended()
 signal game_error(what)
 
@@ -31,12 +32,14 @@ func host_game(new_player_name):
 	peer = NetworkedMultiplayerENet.new()
 	peer.create_server(DEFAULT_PORT, MAX_PEERS)
 	get_tree().set_network_peer(peer)
+	emit_signal("show_lobby")
 
 func join_game(ip, new_player_name):
 	player_name = new_player_name
 	peer = NetworkedMultiplayerENet.new()
 	peer.create_client(ip, DEFAULT_PORT)
 	get_tree().set_network_peer(peer)
+	emit_signal("show_lobby")
 	
 # This is called on all clients (even listen server) whenever someone connects
 func _on_player_connected(id):

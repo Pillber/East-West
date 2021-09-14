@@ -8,9 +8,6 @@ onready var ip_address = $JoiningPopup/VBoxContainer/IP
 var player_name: String
 var ip: String
 
-signal hosting_game()
-signal joining_game()
-
 func _ready():
 	
 	Network.connect("connection_failed", self, "_on_connection_failed")
@@ -23,14 +20,12 @@ func _on_HostButton_pressed():
 	if check_name():
 		print("hosting")
 		Network.host_game(player_name)
-		emit_signal("hosting_game")
 
 
 func _on_JoinButton_pressed():
 	if check_name():
 		print("joining")
 		joining_popup.popup()
-		emit_signal("joining_game")
 
 
 func check_name():
