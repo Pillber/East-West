@@ -45,7 +45,7 @@ func _on_player_connected(id):
 remote func register_player(new_player_name):
 	print("Registering player " + new_player_name)
 	var id = get_tree().get_rpc_sender_id()
-	players[id] = player_name 
+	players[id] = {"Name" : new_player_name, "Ready" : false} 
 	emit_signal("player_list_changed")
 		
 func _on_connected_ok():

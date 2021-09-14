@@ -1,18 +1,41 @@
 extends Control
 
+onready var start_button = $StartButton
+onready var player_list = $HBoxContainer/PlayersPanel/VBoxContainer/PlayerList
+onready var ready_button = $HBoxContainer/PlayersPanel/VBoxContainer/ReadyButton
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
+export var ready: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if not get_tree().is_network_server():
+	
+	Network.connect("player_list_changed", self, "update_player_list")
+	
+	if get_tree().is_network_server():
+		start_button.visible = true
+		start_button.disabled = true
 		
-		
+	update_player_list()
+
+func update_player_list():
+	player_list.clear()
+	var player_line: String = Network.player_name
+	if ready:
+		player_line += " (Ready)"
+	player_list.add_item(player_line, null, false)
+	for player in Network.players:
+		player_line = player.Name
+		if player.Ready:
+			player_line += " (Read)"
+		player_list.add(player_line, null, false)
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _on_ReadyButton_pressed():
+	if not ready:
+		ready = true
+		ready_button.text = "Unready"
+		#tell other clients you are now on the ready list
+	else:
+		ready = false
+		ready_button.text = "Ready"
+	update_player_list()
