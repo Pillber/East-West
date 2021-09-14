@@ -23,19 +23,20 @@ func update_player_list():
 	if ready:
 		player_line += " (Ready)"
 	player_list.add_item(player_line, null, false)
-	for player in Network.players:
+	for player in Network.get_player_list():
+		print(player)
 		player_line = player.Name
 		if player.Ready:
-			player_line += " (Read)"
-		player_list.add(player_line, null, false)
+			player_line += " (Ready)"
+		player_list.add_item(player_line, null, false)
 
 
 func _on_ReadyButton_pressed():
 	if not ready:
 		ready = true
 		ready_button.text = "Unready"
-		#tell other clients you are now on the ready list
 	else:
 		ready = false
 		ready_button.text = "Ready"
+	Network.change_player_ready()
 	update_player_list()

@@ -9,7 +9,6 @@ func _ready():
 	#Network.connect("game_ended", self, "_on_game_ended")
 	#Network.connect("game_error", self, "_on_game_error")
 
-	Network.connect("player_list_changed", self, "refresh_lobby")
 	Network.connect("connection_succeeded", self, "_on_connection_success")
 	Network.connect("show_lobby", self, "show_lobby")
 	
@@ -25,6 +24,7 @@ func show_host_or_join():
 	
 func show_lobby():
 	host_or_join.hide()
+	lobby.update_player_list()
 	lobby.show()
 	
 func _on_connection_success():

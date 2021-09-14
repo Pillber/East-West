@@ -52,5 +52,4 @@ func _on_connection_failed():
 	joining_popup.get_node("VBoxContainer/JoinPopupButton").disabled = false
 	
 func _on_connection_succeeded():
-	#TODO: switch to lobby screen
-	pass
+	joining_popup.hide()

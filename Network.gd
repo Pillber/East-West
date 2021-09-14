@@ -70,6 +70,27 @@ func _on_server_disconnected():
 
 func get_player_list():
 	return players.values()
+	
+func change_player_ready():
+	rpc("player_readied")
+
+remote func player_readied():
+	var id = get_tree().get_rpc_sender_id()
+	players[id].Ready = !players[id].Ready
+	emit_signal("player_list_changed")
+	
+
+
+
+
+
+
+
+
+
+#############################
+## STARTING GAME FUNCTIONS ##
+#############################
 
 func start_game():
 		
