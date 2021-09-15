@@ -18,6 +18,7 @@ signal connection_failed()
 signal connection_succeeded()
 signal show_lobby()
 signal message_received(id, message)
+signal server_closed()
 signal game_ended()
 signal game_error(what)
 
@@ -67,7 +68,8 @@ func _on_connected_fail():
 	emit_signal("connection_failed")
 	
 func _on_server_disconnected():
-	pass
+	players.clear()
+	emit_signal("server_closed")
 
 func get_player_list():
 	return players.values()
@@ -108,15 +110,11 @@ func start_game():
 	assert(get_tree().is_network_server())
 	
 	#Signal other plays to start pre-game code
-	for p in players:
-		rpc_id(p, "pre_start_game")
-
-	#Start own pre-game code
-	pre_start_game()
+	rpc("pre_start_game")
 
 
 #Run after start button is pressed but before it actually starts
-remote func pre_start_game():
+remotesync func pre_start_game():
 
 	# Change to game scene while keeping lobby scene loading
 	var Game = load("res://Game.tscn").instance()
@@ -135,7 +133,7 @@ remote func pre_start_game():
 		var player = load("res://Player.tscn").instance()
 		player.set_name(str(p))
 		player.set_network_master(p)
-		player.set_in_game_name(players[p])
+		player.set_in_game_name(players[p].Name)
 		get_node("/root/Game").add_child(player) 
 		get_node("/root/Game/" + str(p)).position += Vector2(100, 0)
 	

@@ -143,3 +143,4 @@ __meta__ = {
 [connection signal="pressed" from="HBoxContainer/PlayersPanel/VBoxContainer/ReadyButton" to="." method="_on_ReadyButton_pressed"]
 [connection signal="text_entered" from="HBoxContainer/MessagesPanel/VBoxContainer/HBoxContainer/MessagePrompt" to="." method="_on_MessagePrompt_text_entered"]
 [connection signal="pressed" from="HBoxContainer/MessagesPanel/VBoxContainer/HBoxContainer/SendButton" to="." method="_on_SendButton_pressed"]
+[connection signal="pressed" from="StartButton" to="." method="_on_StartButton_pressed"]

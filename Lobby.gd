@@ -56,6 +56,10 @@ func send_message():
 func _on_message_received(id, message):
 	var sender_name = Network.players[id].Name
 	messages.append_bbcode("\n[" + sender_name + "]: " + message)
+	
+func clear():
+	player_list.clear()
+	messages.clear()
 
 func _on_ReadyButton_pressed():
 	if not ready:
@@ -73,3 +77,7 @@ func _on_SendButton_pressed():
 
 func _on_MessagePrompt_text_entered(new_text):
 	send_message()
+
+
+func _on_StartButton_pressed():
+	Network.start_game()

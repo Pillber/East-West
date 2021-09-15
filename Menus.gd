@@ -11,6 +11,7 @@ func _ready():
 
 	Network.connect("connection_succeeded", self, "_on_connection_success")
 	Network.connect("show_lobby", self, "show_lobby")
+	Network.connect("server_closed", self, "show_host_or_join")
 	
 	main_menu.connect("play_pressed", self, "show_host_or_join")
 
@@ -20,6 +21,8 @@ func _ready():
 
 func show_host_or_join():
 	main_menu.hide()
+	lobby.hide()
+	lobby.clear()
 	host_or_join.show()
 	
 func show_lobby():
