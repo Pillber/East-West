@@ -1,8 +1,11 @@
 extends Node2D
 
 
-func spawn_object(object):
-	pass
+func spawn_object(path: String, position: Vector2):
+	var instance = load(path).instance()
+	instance.set_network_master(1)
+	instance.position = position
+	$LevelObjects.add_child(instance)	
 	
 func new_player(master_id: int, name: String):
 	var player_instance = load("res://Player.tscn").instance()
