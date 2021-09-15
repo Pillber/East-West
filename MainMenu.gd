@@ -2,8 +2,12 @@ extends VBoxContainer
 
 signal play_pressed()
 
+func _ready():
+	$ThemeMusic.play()
+
 func _on_PlayButton_pressed():
 	print("playing...")
+	$ThemeMusic.stop()
 	emit_signal("play_pressed")
 
 
