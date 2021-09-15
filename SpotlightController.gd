@@ -10,9 +10,9 @@ func _ready():
 
 func _process(delta):
 	if is_network_master():
-		rset("puppet_pos", position)
+		rset("puppet_pos", global_position)
 	else:
-		position = puppet_pos
+		global_position = puppet_pos
 	
 	
 

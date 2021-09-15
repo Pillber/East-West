@@ -1,7 +1,7 @@
 extends "res://SectionTemplate.gd"
 
 func _ready():
-	#Master all level objects to host
+	#Master all default objects to host
 	master_game_objects_to_host()
 	
 	spawn_players()
@@ -10,7 +10,7 @@ func _ready():
 func spawn_barbed_wire(x: int):
 	randomize()
 	for i in range(x):
-		spawn_object("res://BarbedWire.tscn", Vector2(rand_range(300, 800), rand_range(300, 800)))
+		spawn_object("res://BarbedWire.tscn", Vector2(rand_range(100, 800), rand_range(100, 800)))
 	
 func player_spotted(who):
 	print(str(who) + " was spotted")
