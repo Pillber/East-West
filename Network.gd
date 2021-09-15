@@ -17,6 +17,7 @@ signal player_list_changed()
 signal connection_failed()
 signal connection_succeeded()
 signal show_lobby()
+signal message_received(id, message)
 signal game_ended()
 signal game_error(what)
 
@@ -80,6 +81,12 @@ remote func player_readied():
 	emit_signal("player_list_changed")
 	
 
+func send_message(message):
+	rpc("send_message_all", message)
+	
+remote func send_message_all(message):
+	var id = get_tree().get_rpc_sender_id()
+	emit_signal("message_received", id, message)
 
 
 

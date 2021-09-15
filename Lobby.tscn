@@ -104,6 +104,7 @@ margin_right = 199.0
 margin_bottom = 169.0
 size_flags_vertical = 3
 text = "Hosted Lobby!"
+scroll_following = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/MessagesPanel/VBoxContainer"]
 margin_top = 173.0
@@ -140,3 +141,5 @@ __meta__ = {
 }
 
 [connection signal="pressed" from="HBoxContainer/PlayersPanel/VBoxContainer/ReadyButton" to="." method="_on_ReadyButton_pressed"]
+[connection signal="text_entered" from="HBoxContainer/MessagesPanel/VBoxContainer/HBoxContainer/MessagePrompt" to="." method="_on_MessagePrompt_text_entered"]
+[connection signal="pressed" from="HBoxContainer/MessagesPanel/VBoxContainer/HBoxContainer/SendButton" to="." method="_on_SendButton_pressed"]

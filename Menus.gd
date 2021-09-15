@@ -24,7 +24,7 @@ func show_host_or_join():
 	
 func show_lobby():
 	host_or_join.hide()
-	lobby.update_player_list()
+	lobby.init()
 	lobby.show()
 	
 func _on_connection_success():
