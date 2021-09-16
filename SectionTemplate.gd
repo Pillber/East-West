@@ -15,8 +15,9 @@ func new_player(master_id: int, name: String):
 	return player_instance
 	
 	
+#Unique functionility added to each child scene
 func remove_player(player_id):
-	$Players.get_node(str(player_id)).queue_free()
+	print("Player: " + str(player_id) + " being removed!")
 
 
 

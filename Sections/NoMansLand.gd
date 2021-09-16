@@ -31,5 +31,8 @@ func spawn_players():
 	for p in gamestate.players:
 		$Players.add_child(new_player(p, gamestate.players[p]))
 
-		
+
+#Must be overriden in child scripts
+func remove_player(player_id):
+	$Players.get_node(str(player_id)).queue_free()
 
