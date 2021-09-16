@@ -1,7 +1,7 @@
 extends Node2D
 
 
-func spawn_object(path: String, position: Vector2):
+remotesync func spawn_object(path: String, position: Vector2):
 	var instance = load(path).instance()
 	instance.set_network_master(1)
 	instance.position = position

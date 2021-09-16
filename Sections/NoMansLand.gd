@@ -1,16 +1,23 @@
 extends "res://SectionTemplate.gd"
 
 func _ready():
+	spawn_barbed_wire()
 	#Master all default objects to host
-	#master_objects_to_host()
+	master_objects_to_host()
 	spawn_players()
 	
 
 
+func spawn_barbed_wire():
+	randomize()
+	for i in range(3):
+		rpc("spawn_object", "res://BarbedWire.tscn", Vector2(rand_range(100, 300), rand_range(100, 100)))
+
 func spot_player(who):
 	rpc("player_spotted", who)
+	
 
-remote func player_spotted(who):
+remotesync func player_spotted(who):
 	print(who)
 
 	
