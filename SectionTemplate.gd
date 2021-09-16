@@ -16,7 +16,7 @@ func new_player(master_id: int, name: String):
 	
 	
 func remove_player(player_id):
-	get_node("/Players/" + player_id).queue_free()
+	$Players.get_node(str(player_id)).queue_free()
 
 
 

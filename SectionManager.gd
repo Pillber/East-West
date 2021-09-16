@@ -27,4 +27,4 @@ func load_menu():
 		get_tree().get_root().get_node(current_section).show()
 		
 func remove_player(player_id):
-	get_node(current_section).remove_player(player_id)
+	get_tree().get_root().get_node(current_section).remove_player(player_id)
