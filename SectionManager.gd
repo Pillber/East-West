@@ -1,6 +1,6 @@
 extends Node
 
-var current_section = "MainMenu"
+var current_section: String = "MainMenu"
 
 func load_section(section_name):
 	#Load section we are looking for
@@ -25,3 +25,6 @@ func load_menu():
 		get_tree().get_root().get_node(current_section).queue_free()
 		current_section = "MainMenu"
 		get_tree().get_root().get_node(current_section).show()
+		
+func remove_player(player_id):
+	get_node(current_section).remove_player(player_id)

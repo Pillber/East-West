@@ -53,6 +53,7 @@ func _on_connected_ok():
 	
 func _on_player_disconnected(id):
 	print("player disconnected")
+	SectionManager.remove_player(id)
 	unregister_player(id)
 	
 func unregister_player(id):

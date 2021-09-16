@@ -14,6 +14,9 @@ func new_player(master_id: int, name: String):
 	player_instance.set_in_game_name(name)
 	return player_instance
 	
+	
+func remove_player(player_id):
+	get_node("/Players/" + player_id).queue_free()
 
 
 
