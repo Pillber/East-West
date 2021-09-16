@@ -18,4 +18,10 @@ func load_section(section_name):
 	
 	#Update what the current section
 	current_section = section_name
-	
+
+func load_menu():
+	# Make sure that the menu isnt being loaded from the menu
+	if current_section != "MainMenu":
+		get_tree().get_root().get_node(current_section).queue_free()
+		current_section = "MainMenu"
+		get_tree().get_root().get_node(current_section).show()

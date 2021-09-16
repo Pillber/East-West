@@ -52,6 +52,7 @@ func _on_connected_ok():
 	emit_signal("connection_succeeded")
 	
 func _on_player_disconnected(id):
+	print("player disconnected")
 	unregister_player(id)
 	
 func unregister_player(id):
@@ -60,11 +61,17 @@ func unregister_player(id):
 	emit_signal("player_list_changed")
 	
 func _on_connected_fail():
+	print("connection failed")
 	emit_signal("connection_failed")
 	
 func _on_server_disconnected():
-	print("Server Disconnecting")
-	pass
+	# Disconnect self from network
+	get_tree().network_peer = null
+	# Clear players
+	players.clear()
+	# Reload main menu
+	SectionManager.load_menu()
+	emit_signal("game_error")
 
 func get_player_list():
 	return players.values()

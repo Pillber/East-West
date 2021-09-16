@@ -7,6 +7,7 @@ func _ready():
 	spawn_players()
 	spawn_barbed_wire(3)
 
+# Spawn x amount of barbed wire randomly throughout scene
 func spawn_barbed_wire(x: int):
 	randomize()
 	for i in range(x):

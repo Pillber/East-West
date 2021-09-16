@@ -5,8 +5,8 @@ func _ready():
 	# Called every time the node is added to the scene.
 	"""
 	gamestate.connect("game_ended", self, "_on_game_ended")
-	gamestate.connect("game_error", self, "_on_game_error")
 	"""
+	gamestate.connect("game_error", self, "_on_game_error")
 	gamestate.connect("player_list_changed", self, "refresh_lobby")
 	gamestate.connect("connection_succeeded", self, "_on_connection_success")
 	gamestate.connect("connection_failed", self, "_on_connection_failed")
@@ -14,6 +14,13 @@ func _ready():
 	$LobbyPanel.hide()
 	$ConnectingPanel.show()
 	
+
+func _on_game_error():
+	$LobbyPanel.hide()
+	$ConnectingPanel.show()
+	$ErrorLabel.text = "SERVER DISCONNECTED"
+	$ConnectingPanel/HostButton.disabled = false
+	$ConnectingPanel/JoinButton.disabled = false
 
 func _on_connection_success():
 	refresh_lobby()
@@ -64,7 +71,10 @@ func _on_JoinButton_pressed():
 	if name == "":
 		$ErrorLabel.text = "INVALID NAME"
 		return
-	if not ip.is_valid_ip_address():
+	if ip == "":
+		# Autofill to localhost ip
+		ip = "127.0.0.1"
+	elif not ip.is_valid_ip_address():
 		$ErrorLabel.text = "INVALID IP"
 		return
 	
