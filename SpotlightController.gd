@@ -1,20 +1,16 @@
-extends Area2D
+extends "res://GameObject.gd"
 
-puppet var puppet_pos = Vector2()
+
 
 var follow_path = true
 var follow_speed = 100
 
-func _ready():
-	pass
+
+
+
 
 func _process(delta):
-	if is_network_master():
-		rset("puppet_pos", global_position)
-	else:
-		global_position = puppet_pos
-	
-	
+	sync_position()
 
 
 func _on_Spotlight_body_entered(body):
