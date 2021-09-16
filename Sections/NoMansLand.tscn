@@ -1,11 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Sections/NoMansLand.gd" type="Script" id=1]
 [ext_resource path="res://Spotlight.tscn" type="PackedScene" id=2]
 [ext_resource path="res://PathFollower.tscn" type="PackedScene" id=3]
-[ext_resource path="res://FinishLine.png" type="Texture" id=4]
-
-[sub_resource type="RectangleShape2D" id=1]
 
 [node name="NoMansLand" type="Node2D"]
 script = ExtResource( 1 )
@@ -22,15 +19,5 @@ position = Vector2( 512.619, 322.376 )
 
 [node name="Spotlight" parent="LevelObjects/Path/PathFollow2D" index="0" instance=ExtResource( 2 )]
 position = Vector2( 133.029, 13.2504 )
-
-[node name="EndZone" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EndZone"]
-shape = SubResource( 1 )
-
-[node name="Sprite" type="Sprite" parent="EndZone"]
-position = Vector2( 512.017, -25.0612 )
-scale = Vector2( 0.510791, 0.5 )
-texture = ExtResource( 4 )
 
 [editable path="LevelObjects/Path"]

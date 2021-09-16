@@ -1,16 +1,13 @@
-extends Area2D
+extends "res://GameObject.gd"
 
-puppet var puppet_pos = Vector2()
+
 
 func _ready():
 	pass
 
 	
 func _process(delta):
-	if is_network_master():
-		rset("puppet_pos", position)
-	else:
-		position = puppet_pos
+	sync_position()
 
 
 func _on_BarbedWire_body_entered(body):

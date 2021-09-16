@@ -2,20 +2,17 @@ extends "res://SectionTemplate.gd"
 
 func _ready():
 	#Master all default objects to host
-	master_game_objects_to_host()
-	
+	#master_objects_to_host()
 	spawn_players()
-	spawn_barbed_wire(3)
+	
 
-# Spawn x amount of barbed wire randomly throughout scene
-func spawn_barbed_wire(x: int):
-	randomize()
-	for i in range(x):
-		spawn_object("res://BarbedWire.tscn", Vector2(rand_range(100, 800), rand_range(100, 800)))
-	
-func player_spotted(who):
-	print(str(who) + " was spotted")
-	
+
+func spot_player(who):
+	rpc("player_spotted", who)
+
+remote func player_spotted(who):
+	print(who)
+
 	
 func spawn_players():
 	#Spawn my player
