@@ -79,7 +79,7 @@ func get_player_list():
 
 func start_game():
 		
-	print(players)
+	#print(players)
 	
 	#Assert means that if this client is not the host --> Stop the code
 	#This means only the host should be running this code (This is a SERVER ONLY COMMAND)

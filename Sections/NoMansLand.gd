@@ -11,7 +11,7 @@ func spawn_barbed_wire():
 	if get_tree().is_network_server():
 		randomize()
 		for i in range(3):
-			rpc("spawn_object", "res://BarbedWire.tscn", Vector2(rand_range(100, 300), rand_range(100, 300)))
+			rpc("spawn_object", "res://BarbedWire.tscn", Vector2(rand_range(100, 600), rand_range(100, 400)))
 
 func spot_player(who):
 	if get_tree().is_network_server():	
