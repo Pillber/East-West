@@ -3,6 +3,9 @@ extends "res://GameObject.gd"
 var follow_path = true
 var follow_speed = 100
 
+func _ready():
+	object_type = "Spotlight"
+
 func _process(delta):
 	sync_position()
 

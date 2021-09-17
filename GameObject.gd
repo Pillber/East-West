@@ -1,7 +1,7 @@
 extends Node2D
 
 
-var object_type
+var object_type: String
 puppet var puppet_pos = Vector2()
 
 func sync_position():
@@ -10,3 +10,5 @@ func sync_position():
 	else:
 		global_position = puppet_pos
 		
+func get_object_type():
+	return object_type

@@ -3,7 +3,7 @@ extends "res://GameObject.gd"
 
 
 func _ready():
-	pass
+	object_type = "BarbedWire"
 
 	
 func _process(delta):
