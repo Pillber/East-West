@@ -28,6 +28,13 @@ func _ready():
 	get_tree().connect("connected_to_server", self, "_on_connected_ok")
 	get_tree().connect("connection_failed", self, "_on_connected_fail")
 	get_tree().connect("server_disconnected", self, "_on_server_disconnected")
+	
+	
+	var upnp = UPNP.new()
+	upnp.discover()
+	upnp.add_port_mapping(DEFAULT_PORT)
+	print(upnp.query_external_address())
+	
 
 func host_game(new_player_name):
 	player_name = new_player_name
