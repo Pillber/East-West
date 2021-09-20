@@ -10,13 +10,25 @@ config_version=4
 
 [application]
 
-config/name="East-West"
-run/main_scene="res://MainMenu.tscn"
+config/name="East\\West"
+run/main_scene="res://Menus.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
-gamestate="*res://gamestate.gd"
+Network="*res://Network.gd"
+
+[display]
+
+window/size/width=480
+window/size/height=270
+window/size/fullscreen=true
+window/stretch/mode="viewport"
+window/stretch/aspect="keep"
+
+[gui]
+
+theme/custom_font="res://UI/main_menu_font.tres"
 
 [input]
 
@@ -47,4 +59,5 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
+2d/snapping/use_gpu_pixel_snap=true
 environment/default_environment="res://default_env.tres"

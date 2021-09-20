@@ -1,0 +1,124 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://icon.png" type="Texture" id=1]
+[ext_resource path="res://HostOrJoin.gd" type="Script" id=2]
+
+[node name="HostOrJoin" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -93.5
+margin_top = -55.5
+margin_right = 93.5
+margin_bottom = 55.5
+grow_horizontal = 2
+custom_constants/separation = 16
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HostButton" type="Button" parent="HBoxContainer"]
+margin_right = 48.0
+margin_bottom = 111.0
+text = "Host"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+margin_left = 64.0
+margin_right = 128.0
+margin_bottom = 111.0
+
+[node name="PlayerPreview" type="TextureRect" parent="HBoxContainer/VBoxContainer"]
+margin_right = 64.0
+margin_bottom = 64.0
+texture = ExtResource( 1 )
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NamePrompt" type="LineEdit" parent="HBoxContainer/VBoxContainer"]
+margin_top = 68.0
+margin_right = 64.0
+margin_bottom = 95.0
+grow_horizontal = 2
+align = 1
+placeholder_text = "Name"
+
+[node name="JoinButton" type="Button" parent="HBoxContainer"]
+margin_left = 144.0
+margin_right = 187.0
+margin_bottom = 111.0
+text = "Join"
+
+[node name="Error" type="Label" parent="."]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -33.0
+grow_horizontal = 2
+text = "Error"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="JoiningPopup" type="PopupPanel" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -125.0
+margin_top = -75.0
+margin_right = 125.0
+margin_bottom = 75.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="JoiningPopup"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -121.0
+margin_top = -71.0
+margin_right = 121.0
+margin_bottom = 71.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="JoinHint" type="Label" parent="JoiningPopup/VBoxContainer"]
+margin_top = 9.0
+margin_right = 242.0
+margin_bottom = 42.0
+text = "Enter Host IP"
+
+[node name="IP" type="LineEdit" parent="JoiningPopup/VBoxContainer"]
+margin_top = 46.0
+margin_right = 242.0
+margin_bottom = 89.0
+placeholder_text = "IP"
+
+[node name="JoinPopupButton" type="Button" parent="JoiningPopup/VBoxContainer"]
+margin_top = 93.0
+margin_right = 242.0
+margin_bottom = 132.0
+text = "Join"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="HBoxContainer/HostButton" to="." method="_on_HostButton_pressed"]
+[connection signal="pressed" from="HBoxContainer/JoinButton" to="." method="_on_JoinButton_pressed"]
+[connection signal="pressed" from="JoiningPopup/VBoxContainer/JoinPopupButton" to="." method="_on_JoinPopupButton_pressed"]
