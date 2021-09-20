@@ -1,12 +1,21 @@
 extends "res://SectionTemplate.gd"
 
-onready var start_zone = $LevelObjects/StartZone/Shape
-onready var end_zone = $LevelObjects/EndZone/Shape
+onready var start_zone = $StartZone/Shape
+onready var end_zone = $EndZone/Shape
 
 func _ready():
 	spawn_barbed_wire()
 	spawn_players()
 	
+
+func player_escaped(who):
+	if get_tree().is_network_server():
+		rpc("tell_all_player_escaped", who)
+		
+	
+remotesync func tell_all_player_escaped(who):
+	print(who + " has escaped!")
+	$Players.get_node(str(who)).queue_free()
 
 
 func spawn_barbed_wire():
@@ -43,3 +52,6 @@ func get_random_start_pos():
 func remove_player(player_id):
 	$Players.get_node(str(player_id)).queue_free()
 
+func _on_EndZone_body_entered(body):
+	player_escaped(body.name)
+	
