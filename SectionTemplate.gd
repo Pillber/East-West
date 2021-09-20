@@ -7,13 +7,13 @@ remotesync func spawn_object(path: String, position: Vector2):
 	$LevelObjects.add_child(instance)	
 	
 	
-func new_player(master_id: int, name: String):
+remotesync func spawn_player(master_id: int, name: String, start_pos: Vector2):
 	var player_instance = load("res://Player.tscn").instance()
 	player_instance.set_name(str(master_id))
 	player_instance.set_network_master(master_id)
 	player_instance.set_in_game_name(name)
-	return player_instance
-	
+	$Players.add_child(player_instance)
+	player_instance.position = start_pos
 	
 #Unique functionility added to each child scene
 func remove_player(player_id):
