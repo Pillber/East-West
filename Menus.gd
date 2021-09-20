@@ -9,7 +9,6 @@ func _ready():
 	#Network.connect("game_ended", self, "_on_game_ended")
 	#Network.connect("game_error", self, "_on_game_error")
 
-	Network.connect("connection_succeeded", self, "_on_connection_success")
 	Network.connect("show_lobby", self, "show_lobby")
 	Network.connect("server_closed", self, "show_host_or_join")
 	
@@ -30,6 +29,3 @@ func show_lobby():
 	lobby.init()
 	lobby.show()
 	
-func _on_connection_success():
-	pass
-
