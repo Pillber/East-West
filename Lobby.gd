@@ -17,7 +17,7 @@ func init():
 	if get_tree().is_network_server():
 		start_button.visible = true
 		start_button.disabled = true
-		
+	messages.append_bbcode("Hosted on IP " + Network.ip)
 	update_player_list()
 
 func update_player_list():

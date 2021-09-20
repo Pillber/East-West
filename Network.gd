@@ -10,6 +10,7 @@ var peer: NetworkedMultiplayerENet = null
 var players = {}
 var player_name = "yo mama"
 var players_ready = []
+var ip = "127.0.0.1"
 
 
 #LOBBY SIGNALS
@@ -31,9 +32,18 @@ func _ready():
 	
 	
 	var upnp = UPNP.new()
-	upnp.discover()
-	upnp.add_port_mapping(DEFAULT_PORT)
-	print(upnp.query_external_address())
+	var upnp_discover_success = upnp.discover()
+	var upnp_port_success = upnp.add_port_mapping(DEFAULT_PORT)
+	print("UPNP discover: " + str(upnp_discover_success))
+	print("UPNP port: " + str(upnp_port_success))
+	if(upnp_discover_success == 0 and upnp_port_success == 0):
+		var external_address = upnp.query_external_address()
+		print("External address: " + external_address)
+		ip = upnp.query_external_address()
+		print("Network.ip = " + ip)
+	else:
+		print("UPNP connection failed. Use private IP as IP.")
+		ip = IP.get_local_addresses()[9]
 	
 
 func host_game(new_player_name):
