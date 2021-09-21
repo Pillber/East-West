@@ -1,14 +1,17 @@
 extends Node
 
+enum TEAM{LOYALIST, ESCAPEE}
+
 var current_section: String = "MainMenu"
 var starting_section = "NoMansLand"
 var loyalist_count = 1
 
 #Holds all player names and there role
 var player_roles = {}
+var my_role
 var group_sus
 
-enum TEAM{LOYALIST, ESCAPEE}
+
 
 func start_new_game():
 	#Only server should be setting roles, everyone else justs copies	
@@ -18,10 +21,10 @@ func start_new_game():
 		
 	load_section(starting_section)
 	
-	print(player_roles)
 
 remotesync func update_roles(roles):
 	player_roles = roles
+	my_role = player_roles[get_tree().get_network_unique_id()]
 
 func assign_roles():
 	#Copy players from network to game & set them all to escapee

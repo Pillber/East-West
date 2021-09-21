@@ -5,6 +5,8 @@ export var move_speed = 100
 puppet var puppet_position: Vector2
 puppet var puppet_input: Vector2
 
+var team
+
 func _ready():
 	position = Vector2(100, 100)
 
