@@ -1,6 +1,43 @@
 extends Node
 
 var current_section: String = "MainMenu"
+var starting_section = "NoMansLand"
+var loyalist_count = 1
+
+#Holds all player names and there role
+var player_roles = {}
+var group_sus
+
+enum TEAM{LOYALIST, ESCAPEE}
+
+func start_new_game():
+	#Only server should be setting roles, everyone else justs copies	
+	if get_tree().is_network_server():
+		assign_roles()
+		rpc("update_roles", player_roles)
+		
+	load_section(starting_section)
+	
+	print(player_roles)
+
+remotesync func update_roles(roles):
+	player_roles = roles
+
+func assign_roles():
+	#Copy players from network to game & set them all to escapee
+	player_roles[get_tree().get_network_unique_id()] = TEAM.ESCAPEE
+	for p in Network.players:
+		player_roles[p] = TEAM.ESCAPEE
+	
+	#Choose some to be loyalist at random
+	#Making sure to not choose same person twice
+	randomize()
+	for l in range(loyalist_count):
+		while true:
+			var random_id = player_roles.keys()[int(rand_range(0, player_roles.size()))]
+			if player_roles[random_id] == TEAM.ESCAPEE:
+				player_roles[random_id] = TEAM.LOYALIST
+				break
 
 func load_section(section_name):
 	#Load section we are looking for

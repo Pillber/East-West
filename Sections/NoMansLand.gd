@@ -15,7 +15,7 @@ func player_escaped(who):
 	
 remotesync func tell_all_player_escaped(who):
 	print(who + " has escaped!")
-	$Players.get_node(str(who)).queue_free()
+	#$Players.get_node(str(who)).queue_free()
 
 
 func spawn_barbed_wire():

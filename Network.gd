@@ -94,9 +94,7 @@ func start_game():
 
 #Run after start button is pressed but before it actually starts
 remote func pre_start_game():
-
-	#Will be replaced with the first section later
-	GameState.load_section("NoMansLand")
+	GameState.start_new_game()
 	
 	
 	#If NOT THE SERVER HOST --> Tell server we are ready
