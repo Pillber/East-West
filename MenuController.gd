@@ -6,10 +6,10 @@ func _ready():
 	"""
 	gamestate.connect("game_ended", self, "_on_game_ended")
 	"""
-	gamestate.connect("game_error", self, "_on_game_error")
-	gamestate.connect("player_list_changed", self, "refresh_lobby")
-	gamestate.connect("connection_succeeded", self, "_on_connection_success")
-	gamestate.connect("connection_failed", self, "_on_connection_failed")
+	Network.connect("game_error", self, "_on_game_error")
+	Network.connect("player_list_changed", self, "refresh_lobby")
+	Network.connect("connection_succeeded", self, "_on_connection_success")
+	Network.connect("connection_failed", self, "_on_connection_failed")
 	
 	$LobbyPanel.hide()
 	$ConnectingPanel.show()
@@ -35,10 +35,10 @@ func _on_connection_failed():
 func refresh_lobby():
 	#Clear current lobby list and add self
 	$LobbyPanel/PlayerList.clear()
-	$LobbyPanel/PlayerList.add_item(gamestate.player_name + " (You)")
+	$LobbyPanel/PlayerList.add_item(Network.player_name + " (You)")
 	
 	#Add all of the other players
-	var player_list = gamestate.get_player_list()
+	var player_list = Network.get_player_list()
 	print("List: " + str(player_list))
 	player_list.sort()
 	for p in player_list:
@@ -58,7 +58,7 @@ func _on_HostButton_pressed():
 	$ConnectingPanel.hide()
 	$ErrorLabel.text = ""
 	
-	gamestate.host_game(name)
+	Network.host_game(name)
 	refresh_lobby()
 	
 func _on_JoinButton_pressed():
@@ -84,12 +84,12 @@ func _on_JoinButton_pressed():
 	$ConnectingPanel/JoinButton.disabled = true
 	
 	#Attempt to Connect
-	gamestate.join_game(ip, name)
+	Network.join_game(ip, name)
 	
 	$LobbyPanel/StartButton.disabled = true
 	
 func _on_StartButton_pressed():
-	gamestate.start_game()
+	Network.start_game()
 
 
 	
