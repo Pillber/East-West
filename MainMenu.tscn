@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://UI/title_font.tres" type="DynamicFont" id=1]
 [ext_resource path="res://MainMenu.gd" type="Script" id=2]
 [ext_resource path="res://Sounds/West Theme.mp3" type="AudioStream" id=3]
 [ext_resource path="res://Sounds/Click SFX East_West.ogg" type="AudioStream" id=4]
+[ext_resource path="res://UI/main_ui.tres" type="DynamicFont" id=5]
 
 [node name="MainMenu" type="VBoxContainer"]
 anchor_left = 0.5
@@ -22,30 +23,31 @@ __meta__ = {
 }
 
 [node name="Title" type="Label" parent="."]
-margin_top = 24.0
+margin_top = 22.0
 margin_right = 336.0
-margin_bottom = 89.0
+margin_bottom = 87.0
 size_flags_stretch_ratio = 0.0
 custom_fonts/font = ExtResource( 1 )
 text = "EAST\\WEST"
 align = 1
 
 [node name="PlayButton" type="Button" parent="."]
-margin_top = 105.0
+margin_top = 103.0
 margin_right = 336.0
-margin_bottom = 128.0
+margin_bottom = 129.0
+custom_fonts/font = ExtResource( 5 )
 text = "Play"
 
 [node name="OptionsButton" type="Button" parent="."]
-margin_top = 144.0
+margin_top = 145.0
 margin_right = 336.0
-margin_bottom = 167.0
+margin_bottom = 168.0
 text = "Options"
 
 [node name="QuitButton" type="Button" parent="."]
-margin_top = 183.0
+margin_top = 184.0
 margin_right = 336.0
-margin_bottom = 206.0
+margin_bottom = 207.0
 text = "Quit"
 
 [node name="ThemeMusic" type="AudioStreamPlayer" parent="."]
