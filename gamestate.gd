@@ -34,6 +34,8 @@ func assign_roles():
 	
 	#Choose some to be loyalist at random
 	#Making sure to not choose same person twice
+	if loyalist_count >= player_roles.size():
+		return
 	randomize()
 	for l in range(loyalist_count):
 		while true:
@@ -68,3 +70,4 @@ func load_menu():
 		
 func remove_player(player_id):
 	get_tree().get_root().get_node(current_section).remove_player(player_id)
+	player_roles.erase(player_id)
