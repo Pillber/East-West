@@ -2,6 +2,11 @@ extends Node
 
 enum TEAM{LOYALIST, ESCAPEE}
 
+class Player:
+	var name: String
+	var id: int
+	var team
+
 var current_section: String = "MainMenu"
 var starting_section = "NoMansLand"
 var loyalist_count = 1
