@@ -3,17 +3,19 @@ extends Node
 enum TEAM{LOYALIST, ESCAPEE}
 
 class Player:
-	var name: String
-	var id: int
 	var team
+	var name: String
+	#Other player attributes could be added here
+	#var apperance
+	#var 
 
 var current_section: String = "MainMenu"
 var starting_section = "NoMansLand"
 var loyalist_count = 1
 
 #Holds all player names and there role
-var player_roles = {}
-var my_role
+var player_data = {}
+var my_data
 var group_sus
 
 
@@ -21,32 +23,39 @@ var group_sus
 func start_new_game():
 	#Only server should be setting roles, everyone else justs copies	
 	if get_tree().is_network_server():
-		assign_roles()
-		rpc("update_roles", player_roles)
+		create_players()
+		rpc("update_player_data", player_data)
 		
 	load_section(starting_section)
 	
 
-remotesync func update_roles(roles):
-	player_roles = roles
-	my_role = player_roles[get_tree().get_network_unique_id()]
+remotesync func update_player_data(data):
+	player_data = data
+	my_data = player_data[get_tree().get_network_unique_id()]
 
-func assign_roles():
-	#Copy players from network to game & set them all to escapee
-	player_roles[get_tree().get_network_unique_id()] = TEAM.ESCAPEE
-	for p in Network.players:
-		player_roles[p] = TEAM.ESCAPEE
+func create_players():
 	
-	#Choose some to be loyalist at random
-	#Making sure to not choose same person twice
-	if loyalist_count >= player_roles.size():
+	#Hosts Player
+	player_data[1] = Player.new()
+	player_data[1].name = Network.player_name
+	player_data[1].team = TEAM.ESCAPEE
+	
+	#Everyone elses players
+	for p in Network.players:
+		player_data[p] = Player.new()
+		player_data[p].name = Network.players[p]
+		player_data[p].team = TEAM.ESCAPEE
+		
+	
+	#Choose some people to be loyalist
+	if loyalist_count >= player_data.size():
 		return
 	randomize()
 	for l in range(loyalist_count):
 		while true:
-			var random_id = player_roles.keys()[int(rand_range(0, player_roles.size()))]
-			if player_roles[random_id] == TEAM.ESCAPEE:
-				player_roles[random_id] = TEAM.LOYALIST
+			var random_id = player_data.keys()[int(rand_range(0, player_data.size()))]
+			if player_data[random_id].team == TEAM.ESCAPEE:
+				player_data[random_id].team = TEAM.LOYALIST
 				break
 
 func load_section(section_name):
@@ -75,4 +84,4 @@ func load_menu():
 		
 func remove_player(player_id):
 	get_tree().get_root().get_node(current_section).remove_player(player_id)
-	player_roles.erase(player_id)
+	player_data.erase(player_id)

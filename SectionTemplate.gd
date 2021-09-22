@@ -13,7 +13,7 @@ remotesync func spawn_player(master_id: int, name: String, start_pos: Vector2):
 	player_instance.set_network_master(master_id)
 	
 	
-	if GameState.player_roles[master_id] == GameState.TEAM.ESCAPEE:
+	if GameState.player_data[master_id].team == GameState.TEAM.ESCAPEE:
 		player_instance.set_in_game_name(name + " -  Escapee")
 		player_instance.team = GameState.TEAM.ESCAPEE
 	else:

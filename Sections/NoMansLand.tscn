@@ -20,6 +20,7 @@ scale = Vector2( 0.395062, 0.306584 )
 texture = ExtResource( 4 )
 
 [node name="Darken" type="CanvasModulate" parent="."]
+visible = false
 color = Color( 0.364706, 0.364706, 0.364706, 1 )
 
 [node name="Players" type="Node2D" parent="."]
