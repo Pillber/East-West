@@ -3,7 +3,7 @@ extends Node
 enum TEAM{LOYALIST, ESCAPEE}
 
 class Player:
-	var team
+	var team = TEAM.ESCAPEE
 	var name: String
 	#Other player attributes could be added here
 	#var apperance
@@ -25,10 +25,12 @@ func start_new_game():
 	if get_tree().is_network_server():
 		create_players()
 		rpc("update_player_data", player_data)
-		
-	load_section(starting_section)
+		rpc("load_section", starting_section)
 	
-
+	
+	print(player_data)
+	
+	
 remotesync func update_player_data(data):
 	player_data = data
 	my_data = player_data[get_tree().get_network_unique_id()]
@@ -38,13 +40,11 @@ func create_players():
 	#Hosts Player
 	player_data[1] = Player.new()
 	player_data[1].name = Network.player_name
-	player_data[1].team = TEAM.ESCAPEE
 	
 	#Everyone elses players
 	for p in Network.players:
 		player_data[p] = Player.new()
 		player_data[p].name = Network.players[p]
-		player_data[p].team = TEAM.ESCAPEE
 		
 	
 	#Choose some people to be loyalist
@@ -58,7 +58,7 @@ func create_players():
 				player_data[random_id].team = TEAM.LOYALIST
 				break
 
-func load_section(section_name):
+remotesync func load_section(section_name):
 	#Load section we are looking for
 	var section = load("res://Sections/" + str(section_name) + ".tscn").instance()
 	

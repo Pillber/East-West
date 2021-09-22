@@ -53,5 +53,5 @@ func remove_player(player_id):
 	$Players.get_node(str(player_id)).queue_free()
 
 func _on_EndZone_body_entered(body):
-	player_escaped(body.name)
-	
+	#player_escaped(body.name)
+	pass
