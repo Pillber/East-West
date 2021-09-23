@@ -2,62 +2,34 @@ extends Node
 
 enum TEAM{LOYALIST, ESCAPEE}
 
-class Player:
-	var team = TEAM.ESCAPEE
-	var name: String
-	#Other player attributes could be added here
-	#var apperance
-	#var 
-
 var current_section: String = "MainMenu"
 var starting_section = "NoMansLand"
 var loyalist_count = 1
 
-#Holds all player names and there role
-var player_data = {}
-var my_data
-var group_sus
-
-
 
 func start_new_game():
-	#Only server should be setting roles, everyone else justs copies	
+	#Host assigns teams and other variables and sends them to other players
 	if get_tree().is_network_server():
 		create_players()
-		for p in player_data:
-			rpc_id(p, "update_player_data", player_data[p])
-		rpc("load_section", starting_section)
-	
-	
-	print(player_data)
-	
-	
-remotesync func update_player_data(data):
-	my_data = data
-	print(my_data.team)
-
-func create_players():
-	
-	#Hosts Player
-	player_data[1] = Player.new()
-	player_data[1].name = Network.player_name
-	
-	#Everyone elses players
-	for p in Network.players:
-		player_data[p] = Player.new()
-		player_data[p].name = Network.players[p]
+		
 		
 	
-	#Choose some people to be loyalist
-	if loyalist_count >= player_data.size():
-		return
+		rpc("load_section", starting_section)
+	
+
+remotesync func set_player_data(data):
+	pass
+
+#Populates hosts player_data with player data
+func create_players():
 	randomize()
-	for l in range(loyalist_count):
-		while true:
-			var random_id = player_data.keys()[int(rand_range(0, player_data.size()))]
-			if player_data[random_id].team == TEAM.ESCAPEE:
-				player_data[random_id].team = TEAM.LOYALIST
-				break
+	
+	#Hosts player
+	
+	#Other players
+	
+	#Assign loyalists
+	
 
 remotesync func load_section(section_name):
 	#Load section we are looking for
@@ -85,4 +57,4 @@ func load_menu():
 		
 func remove_player(player_id):
 	get_tree().get_root().get_node(current_section).remove_player(player_id)
-	player_data.erase(player_id)
+
