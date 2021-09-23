@@ -15,8 +15,8 @@ extents = Vector2( 512, 20 )
 script = ExtResource( 1 )
 
 [node name="Background" type="Sprite" parent="."]
-position = Vector2( 512, 302.902 )
-scale = Vector2( 0.395062, 0.306584 )
+position = Vector2( 512, 300.451 )
+scale = Vector2( 0.395062, 0.309106 )
 texture = ExtResource( 4 )
 
 [node name="Darken" type="CanvasModulate" parent="."]

@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+onready var camera = $Camera2D
+
 export var move_speed = 100
 
 puppet var puppet_position: Vector2
@@ -9,6 +11,10 @@ var team
 
 func _ready():
 	position = Vector2(100, 100)
+	
+	# Make sure that the right camera is active for the right player
+	if is_network_master():
+		camera.make_current()
 
 
 func _physics_process(delta):
