@@ -24,7 +24,8 @@ func start_new_game():
 	#Only server should be setting roles, everyone else justs copies	
 	if get_tree().is_network_server():
 		create_players()
-		rpc("update_player_data", player_data)
+		for p in player_data:
+			rpc_id(p, "update_player_data", player_data[p])
 		rpc("load_section", starting_section)
 	
 	
@@ -32,8 +33,8 @@ func start_new_game():
 	
 	
 remotesync func update_player_data(data):
-	player_data = data.duplicate(true)
-	my_data = player_data[get_tree().get_network_unique_id()]
+	my_data = data
+	print(my_data.team)
 
 func create_players():
 	
