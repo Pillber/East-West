@@ -32,7 +32,7 @@ func start_new_game():
 	
 	
 remotesync func update_player_data(data):
-	player_data = data
+	player_data = data.duplicate(true)
 	my_data = player_data[get_tree().get_network_unique_id()]
 
 func create_players():
