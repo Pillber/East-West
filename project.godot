@@ -20,15 +20,16 @@ Network="*res://Network.gd"
 
 [display]
 
-window/size/width=480
-window/size/height=270
+window/size/width=320
+window/size/height=180
 window/size/fullscreen=true
-window/stretch/mode="viewport"
+window/stretch/mode="2d"
 window/stretch/aspect="keep"
 
 [gui]
 
-theme/custom_font="res://UI/main_menu_font.tres"
+theme/custom="res://UI/main_menu_theme.tres"
+theme/custom_font="res://UI/main_ui.tres"
 
 [input]
 

@@ -32,18 +32,13 @@ func _ready():
 	
 	
 	var upnp = UPNP.new()
-	var upnp_discover_success = upnp.discover()
-	var upnp_port_success = upnp.add_port_mapping(DEFAULT_PORT)
-	print("UPNP discover: " + str(upnp_discover_success))
-	print("UPNP port: " + str(upnp_port_success))
-	if(upnp_discover_success == 0 and upnp_port_success == 0):
-		var external_address = upnp.query_external_address()
-		print("External address: " + external_address)
-		ip = upnp.query_external_address()
-		print("Network.ip = " + ip)
+	if(upnp.discover() == 0):
+		if(upnp.add_port_mapping(DEFAULT_PORT) == 0):
+			ip = upnp.query_external_address()
+		else:
+			print("UPNP connection failed. Use private IP as IP.")
 	else:
 		print("UPNP connection failed. Use private IP as IP.")
-		ip = IP.get_local_addresses()[9]
 	
 
 func host_game(new_player_name):
