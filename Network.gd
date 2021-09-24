@@ -6,10 +6,14 @@ const MAX_PEERS = 12
 
 #Is a NetworkedMultiplayerENet: Is what is 
 var peer: NetworkedMultiplayerENet = null
-
-var players = {}
-var player_name = "yo mama"
 var players_ready = []
+
+#Only host will have everyones real roles, everyone else just stores there own
+var players = {}
+
+#Your name and team
+var player_name = "yo mama"
+var my_team
 
 
 #LOBBY SIGNALS
@@ -48,7 +52,7 @@ remote func register_player(player_name):
 	print("Registering player " + player_name)
 	var id = get_tree().get_rpc_sender_id()
 	id = get_tree().get_network_unique_id() if id == 0 else id
-	players[id] = {"name": player_name, "team": GameState.TEAM.LOYALIST}
+	players[id] = {"name": player_name, "team": GameState.TEAM.ESCAPEE}
 	emit_signal("player_list_changed")
 		
 func _on_connected_ok():

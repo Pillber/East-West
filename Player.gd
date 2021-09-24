@@ -10,6 +10,9 @@ puppet var puppet_input: Vector2
 var team
 
 func _ready():
+	if team == GameState.TEAM.LOYALIST:
+		$Sprite.modulate = Color(0, 1, 0)
+	
 	position = Vector2(100, 100)
 	
 	# Make sure that the right camera is active for the right player

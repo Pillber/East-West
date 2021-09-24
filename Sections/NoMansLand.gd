@@ -33,13 +33,9 @@ remotesync func player_spotted(who):
 
 func spawn_players():
 	if get_tree().is_network_server():
-		#Spawn my player
-		var my_id = get_tree().get_network_unique_id()
-		rpc("spawn_player", my_id, Network.player_name, get_random_start_pos())
-		
-		# Add all other players to the game scene
+		# Add all players to the game scene
 		for p in Network.players:
-			rpc("spawn_player", p, Network.players[p], get_random_start_pos())
+			rpc("spawn_player", p, Network.players[p]["name"], get_random_start_pos())
 
 #Gets random point inside starting area
 func get_random_start_pos():

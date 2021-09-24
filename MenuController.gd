@@ -34,9 +34,8 @@ func _on_connection_failed():
 	$ConnectingPanel/JoinButton.disabled = false
 	
 func refresh_lobby():
-	#Clear current lobby list and add self
 	$LobbyPanel/PlayerList.clear()
-	#$LobbyPanel/PlayerList.add_item(Network.player_name + " (You)")
+
 	
 	#Add all of the other players
 	var player_list = Network.get_player_list()
@@ -44,13 +43,11 @@ func refresh_lobby():
 	for p in player_list:
 		player_names.append(str(player_list[p]["name"]))
 	
-	print(str(player_list))
-	#player_names.sort()
+	player_names.sort()
 	
 	
 	for p in player_names:
-		$LobbyPanel/PlayerList.add_item(p)
-		print("Adding to UI: " + p)
+		$LobbyPanel/PlayerList.add_item(p if p != Network.player_name else p + " (You)")
 
 func _on_HostButton_pressed():
 	#Get inputs
