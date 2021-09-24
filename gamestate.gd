@@ -11,9 +11,6 @@ func start_new_game():
 	#Host assigns teams and other variables and sends them to other players
 	if get_tree().is_network_server():
 		create_players()
-		
-		
-	
 		rpc("load_section", starting_section)
 	
 

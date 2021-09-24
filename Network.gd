@@ -31,12 +31,14 @@ func host_game(new_player_name):
 	peer = NetworkedMultiplayerENet.new()
 	peer.create_server(DEFAULT_PORT, MAX_PEERS)
 	get_tree().set_network_peer(peer)
+	register_player(player_name)
 
 func join_game(ip, new_player_name):
 	player_name = new_player_name
 	peer = NetworkedMultiplayerENet.new()
 	peer.create_client(ip, DEFAULT_PORT)
 	get_tree().set_network_peer(peer)
+	register_player(player_name)
 	
 # This is called on all clients (even listen server) whenever someone connects
 func _on_player_connected(id):
@@ -45,7 +47,8 @@ func _on_player_connected(id):
 remote func register_player(player_name):
 	print("Registering player " + player_name)
 	var id = get_tree().get_rpc_sender_id()
-	players[id] = player_name 
+	id = get_tree().get_network_unique_id() if id == 0 else id
+	players[id] = {"name": player_name, "team": GameState.TEAM.LOYALIST}
 	emit_signal("player_list_changed")
 		
 func _on_connected_ok():
@@ -75,7 +78,7 @@ func _on_server_disconnected():
 	emit_signal("game_error")
 
 func get_player_list():
-	return players.values()
+	return players
 
 func start_game():
 		

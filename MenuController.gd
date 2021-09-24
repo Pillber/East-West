@@ -14,7 +14,6 @@ func _ready():
 	$LobbyPanel.hide()
 	$ConnectingPanel.show()
 	
-
 func _on_game_error():
 	$LobbyPanel.hide()
 	$ConnectingPanel.show()
@@ -27,6 +26,8 @@ func _on_connection_success():
 	$ConnectingPanel.hide()
 	$LobbyPanel.show()
 	
+	
+	
 func _on_connection_failed():
 	$ErrorLabel.text = "CONNECTION FAILED."
 	$ConnectingPanel/HostButton.disabled = false
@@ -35,13 +36,19 @@ func _on_connection_failed():
 func refresh_lobby():
 	#Clear current lobby list and add self
 	$LobbyPanel/PlayerList.clear()
-	$LobbyPanel/PlayerList.add_item(Network.player_name + " (You)")
+	#$LobbyPanel/PlayerList.add_item(Network.player_name + " (You)")
 	
 	#Add all of the other players
 	var player_list = Network.get_player_list()
-	print("List: " + str(player_list))
-	player_list.sort()
+	var player_names: Array
 	for p in player_list:
+		player_names.append(str(player_list[p]["name"]))
+	
+	print(str(player_list))
+	#player_names.sort()
+	
+	
+	for p in player_names:
 		$LobbyPanel/PlayerList.add_item(p)
 		print("Adding to UI: " + p)
 
