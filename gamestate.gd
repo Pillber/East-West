@@ -4,7 +4,7 @@ enum TEAM{ESCAPEE, LOYALIST}
 
 var current_section: String = "MainMenu"
 var starting_section = "NoMansLand"
-var loyalist_count = 2
+var loyalist_count = 1
 
 var group_sus = 0
 
@@ -29,10 +29,8 @@ remotesync func update_player_teams(data):
 func assign_teams():
 	randomize()
 	var ids: Array = Network.players.keys()
-	if(loyalist_count > ids.size()):
-		loyalist_count = ids.size()
 	
-	for l in range(loyalist_count):
+	for l in range(loyalist_count if loyalist_count <= ids.size() else ids.size()):
 		var id = ids[rand_range(0, ids.size())]
 		Network.players[id]["team"] = GameState.TEAM.LOYALIST
 		ids.remove(ids.find(id))
