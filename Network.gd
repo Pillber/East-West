@@ -52,7 +52,7 @@ remote func register_player(player_name):
 	print("Registering player " + player_name)
 	var id = get_tree().get_rpc_sender_id()
 	id = get_tree().get_network_unique_id() if id == 0 else id
-	players[id] = {"name": player_name, "team": GameState.TEAM.ESCAPEE}
+	players[id] = {"name": player_name, "team": GameState.TEAM.ESCAPEE, "alive": true}
 	emit_signal("player_list_changed")
 		
 func _on_connected_ok():
@@ -60,7 +60,7 @@ func _on_connected_ok():
 	
 func _on_player_disconnected(id):
 	print("player disconnected")
-	GameState.remove_player(id)
+	GameState.disconnect_player(id)
 	unregister_player(id)
 	
 func unregister_player(id):
@@ -132,7 +132,6 @@ remote func ready_to_start(id):
 			rpc_id(p, "post_start_game")
 		#Start final start code for YOU (SERVER)
 		post_start_game()
-		
-		
+			
 		
 		

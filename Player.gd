@@ -10,7 +10,7 @@ puppet var puppet_input: Vector2
 var team
 
 func _ready():
-	if team == GameState.TEAM.LOYALIST:
+	if team == GameState.TEAM.LOYALIST && Network.my_team == GameState.TEAM.LOYALIST:
 		$Sprite.modulate = Color(0, 1, 0)
 	
 	position = Vector2(100, 100)

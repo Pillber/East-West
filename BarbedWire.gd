@@ -4,10 +4,8 @@ extends "res://GameObject.gd"
 
 func _ready():
 	object_type = "BarbedWire"
-
-	
-func _process(delta):
 	sync_position()
+	
 
 
 func _on_BarbedWire_body_entered(body):
