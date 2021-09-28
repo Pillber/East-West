@@ -79,3 +79,4 @@ remotesync func sus_changed(new_sus):
 
 func start_vote():
 	print("Starting vote")
+	rpc("load_section", "VotingMenu")
