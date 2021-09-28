@@ -1,0 +1,55 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://HUD.gd" type="Script" id=1]
+[ext_resource path="res://PixAntiqua.ttf" type="DynamicFontData" id=2]
+
+[sub_resource type="DynamicFont" id=3]
+size = 30
+font_data = ExtResource( 2 )
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.72549, 0.54902, 0.54902, 1 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.301961, 0.301961, 0.301961, 1 )
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource( 1 )
+
+[node name="LoyalistLabel" type="Label" parent="."]
+visible = false
+margin_left = 24.0
+margin_top = 552.0
+margin_right = 157.0
+margin_bottom = 583.0
+custom_fonts/font = SubResource( 3 )
+custom_colors/font_color = Color( 1, 0.392157, 0.392157, 1 )
+text = "LOYALIST"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EscapeeLabel" type="Label" parent="."]
+visible = false
+margin_left = 24.0
+margin_top = 552.0
+margin_right = 140.0
+margin_bottom = 583.0
+custom_fonts/font = SubResource( 3 )
+custom_colors/font_color = Color( 0.392157, 0.956863, 1, 1 )
+text = "ESCAPEE"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SusMeter" type="ProgressBar" parent="."]
+margin_left = 352.0
+margin_top = 16.0
+margin_right = 672.0
+margin_bottom = 30.0
+custom_styles/fg = SubResource( 1 )
+custom_styles/bg = SubResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

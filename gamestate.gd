@@ -1,5 +1,7 @@
 extends Node
 
+signal group_sus_changed
+
 enum TEAM{ESCAPEE, LOYALIST}
 
 var current_section: String = "MainMenu"
@@ -67,6 +69,13 @@ func alive_player_count():
 	for p in Network.players:
 		a = a+1 if Network.players[p]["alive"] else a
 	return a
+
+func set_group_sus(new_sus):
+	rpc("sus_changed", new_sus)
+
+remotesync func sus_changed(new_sus):
+	group_sus = new_sus
+	emit_signal("group_sus_changed", new_sus)
 
 func start_vote():
 	print("Starting vote")

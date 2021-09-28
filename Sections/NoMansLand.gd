@@ -37,8 +37,8 @@ func player_escaped(who):
 			section_over()
 
 func spot_player(who):
-	if get_tree().is_network_server():	
-		GameState.group_sus += 10
+	if get_tree().is_network_server():
+		GameState.set_group_sus(GameState.group_sus + 10)
 
 remotesync func remove_player(player_id):
 	print("Removing Player")
